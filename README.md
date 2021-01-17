@@ -37,18 +37,15 @@ You'll be provided with the oppurtunity to feed a youtube video URL on script ex
 
 2. With a URL available, a custom webdriver is created for chrome to test against a Desktop and a Mobile use case. Because of this Chrome is currently the only supported browser. There is a known issue with my webdriver configuration that will not open newtabs on the mobile configuration in the mobile viewport. Thankfully for this use case the differences that mattered are on the initial tab.
 
-3. Once the page has finished loading in the browser, a comparison is run against the URL and the page title. It checks to see if any word within the title that is 2 characters or longer can be matched back to the URL. 
-
-The thought process here is that a large majority of web pages have some common element in the title that is included in the URL and sometimes it's split through non alphanumeric characters in the URL like youtu.be. 
-
+3. Once the page has finished loading in the browser, a comparison is run against the URL and the page title. It checks to see if any word within the title that is 2 characters or longer can be matched back to the URL. \
+The thought process here is that a large majority of web pages have some common element in the title that is included in the URL and sometimes it's split through non alphanumeric characters in the URL like youtu.be. \
 Because of this we strip the URL of its scheme and symbols to have a simpler value to compare against. The reason 2 characters were used and not more is for the logic to be more universal in circumstances such as xe.com. Although in hindsight changing the character match count to be a function argument might have been a better idea.
 
 4. With youtube content policies not always being consistent across different regions, or links not always being accessible because of visibility settings and age restrictions, a check is done on the page to see if a common error element is loaded that's been consistent across all my tests so far. If the element is not visible, then the test can continue.
 
 5. With the page loaded a wait is actioned for the share button to appear as our error checks have passed. under normal circumstances the button should exist and therefor if it's not available yet, then there is the chance that it has not rendered yet. The button will be clicked on as soon as available, but if it does not show up within 10 seconds then the test is failed as something else might be wrong.
 
-6. Optionally youtube allows a video to be started at a given timestamp when sharing a video from a Desktop browser. The button is clicked, the input for the start time is cleared and replaced with a value at default or provided as an argument to the keyword. On Desktop there is a copy button that will add the share URL to clipboard when selected which will be selected with or without the timestamp depending on the keyword. Once added to clipboard, the clipboard content is stored as a global variable to be accessed again later.
-
+6. Optionally youtube allows a video to be started at a given timestamp when sharing a video from a Desktop browser. The button is clicked, the input for the start time is cleared and replaced with a value at default or provided as an argument to the keyword. On Desktop there is a copy button that will add the share URL to clipboard when selected which will be selected with or without the timestamp depending on the keyword. Once added to clipboard, the clipboard content is stored as a global variable to be accessed again later. \
 With the mobile view of YouTube the layout of the page is adjusted and there is no access to a copy button. Because of this a different keyword is used for mobile layout to get access to the share URL. Once acquired it's also stored into a global variable.
 
 7. To open a new tab with the share URL, I invoke the javascript to open a new browser window with the stored share URL. I was not able to find any native robot framework functions for this task and went with this approach. 
