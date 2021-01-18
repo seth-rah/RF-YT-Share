@@ -37,7 +37,7 @@ You'll be provided with the oppurtunity to feed a youtube video URL on script ex
 
 2. With a URL available, a custom webdriver is created for chrome to test against a Desktop and a Mobile use case. Because of this Chrome is currently the only supported browser. There is a known issue with my webdriver configuration that will not open newtabs on the mobile configuration in the mobile viewport. Thankfully for this use case the differences that mattered are on the initial tab.
 
-3. Once the page has finished loading in the browser, a comparison is run against the URL and the page title. It checks to see if any word within the title that is 2 characters or longer can be matched back to the URL. \
+3. Once the page has finished loading in the browser, a comparison is run against the URL and the page title. It checks to see if any word within the title that is 2 characters or longer can be matched back to the URL. This is to make sure that a redirect does not occur to a different domain on page load. \
 The thought process here is that a large majority of web pages have some common element in the title that is included in the URL and sometimes it's split through non alphanumeric characters in the URL like youtu.be. \
 Because of this we strip the URL of its scheme and symbols to have a simpler value to compare against. The reason 2 characters were used and not more is for the logic to be more universal in circumstances such as xe.com. Although in hindsight changing the character match count to be a function argument might have been a better idea.
 
